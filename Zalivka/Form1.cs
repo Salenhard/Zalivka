@@ -61,26 +61,49 @@ namespace Zalivka
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+
+            if (e.Button == MouseButtons.Left && paintingType == Painting.Feather)
             {
                 bmp.SetPixel(e.X, e.Y, Color.Black);
                 pictureBox1.Image = bmp;
             }
         }
 
-        private Bitmap pouring(Bitmap bmp, int x, int y, Color color)
+        private Bitmap pouring(Bitmap bmp, int x, int y, Color newcolor)
         {
 
             Stack<Pixel> pixelStack = new Stack<Pixel>();
+
+            Pixel currentPixel;
             pixelStack.Push(new Pixel(x, y));
-            Color color1 = bmp.GetPixel(x, y);
+            Color color1 = bmp.GetPixel(x,y);
             while (pixelStack.Count != 0)
-            {
-                if (bmp.GetPixel(x + 1, y + 1) != color1)
-                    pixelStack.Push(new Pixel(x + 1, y + 1));
+            { 
+                currentPixel = pixelStack.Pop();
+                bmp.SetPixel(currentPixel.x, currentPixel.y, newcolor);
+                x = currentPixel.x;
+                y = currentPixel.y;
+                if (x > 1 && x < pictureBox1.Width - 1 && y > 1 && y < pictureBox1.Height - 1)
+                {
+                    if (bmp.GetPixel(x + 1, y) == color1)
+                        pixelStack.Push(new Pixel(x + 1, y));
+                    if (bmp.GetPixel(x - 1, y) == color1)
+                        pixelStack.Push(new Pixel(x - 1, y));
+                    if (bmp.GetPixel(x, y + 1) == color1)
+                        pixelStack.Push(new Pixel(x, y + 1));
+                    if (bmp.GetPixel(x, y - 1) == color1)
+                        pixelStack.Push(new Pixel(x, y - 1));
+                }
             }
             return bmp;
         }
 
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left && paintingType == Painting.Pouring)
+            {
+                pictureBox1.Image = pouring(bmp, e.X, e.Y, Color.Black);
+            }
+        }
     }
 }
