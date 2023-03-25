@@ -1,0 +1,11 @@
+C:\Users\Александр\source\repos\Zalivka\Zalivka\bin\Debug\Zalivka.exe.config
+C:\Users\Александр\source\repos\Zalivka\Zalivka\bin\Debug\Zalivka.exe
+C:\Users\Александр\source\repos\Zalivka\Zalivka\bin\Debug\Zalivka.pdb
+C:\Users\Александр\source\repos\Zalivka\Zalivka\obj\Debug\Zalivka.csproj.AssemblyReference.cache
+C:\Users\Александр\source\repos\Zalivka\Zalivka\obj\Debug\Zalivka.csproj.SuggestedBindingRedirects.cache
+C:\Users\Александр\source\repos\Zalivka\Zalivka\obj\Debug\Zalivka.Form1.resources
+C:\Users\Александр\source\repos\Zalivka\Zalivka\obj\Debug\Zalivka.Properties.Resources.resources
+C:\Users\Александр\source\repos\Zalivka\Zalivka\obj\Debug\Zalivka.csproj.GenerateResource.cache
+C:\Users\Александр\source\repos\Zalivka\Zalivka\obj\Debug\Zalivka.csproj.CoreCompileInputs.cache
+C:\Users\Александр\source\repos\Zalivka\Zalivka\obj\Debug\Zalivka.exe
+C:\Users\Александр\source\repos\Zalivka\Zalivka\obj\Debug\Zalivka.pdb
