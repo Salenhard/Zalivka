@@ -55,7 +55,7 @@ namespace Zalivka
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            bmp = new Bitmap(pictureBox1.Height, pictureBox1.Width);
+            bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             pictureBox1.Image = bmp;
         }
 
@@ -64,19 +64,23 @@ namespace Zalivka
 
             if (e.Button == MouseButtons.Left && paintingType == Painting.Feather)
             {
-                bmp.SetPixel(e.X, e.Y, Color.Black);
-                pictureBox1.Image = bmp;
+
+                if (e.X > 0 && e.X < pictureBox1.Width && e.Y > 0 && e.Y < pictureBox1.Height)
+                {
+                    bmp.SetPixel(e.X, e.Y, Color.Black);
+                    pictureBox1.Image = bmp;
+                }
             }
         }
 
         private Bitmap pouring(Bitmap bmp, int x, int y, Color newcolor)
         {
-
             Stack<Pixel> pixelStack = new Stack<Pixel>();
-
             Pixel currentPixel;
             pixelStack.Push(new Pixel(x, y));
             Color color1 = bmp.GetPixel(x,y);
+            if (color1.ToArgb() == newcolor.ToArgb())
+                return bmp;
             while (pixelStack.Count != 0)
             { 
                 currentPixel = pixelStack.Pop();
@@ -86,13 +90,50 @@ namespace Zalivka
                 if (x > 1 && x < pictureBox1.Width - 1 && y > 1 && y < pictureBox1.Height - 1)
                 {
                     if (bmp.GetPixel(x + 1, y) == color1)
+                    {
                         pixelStack.Push(new Pixel(x + 1, y));
+                        bmp.SetPixel(x + 1, y, newcolor);
+                    }
                     if (bmp.GetPixel(x - 1, y) == color1)
+                    {
                         pixelStack.Push(new Pixel(x - 1, y));
+                        bmp.SetPixel(x - 1, y, newcolor);
+                    }
                     if (bmp.GetPixel(x, y + 1) == color1)
+                    {
                         pixelStack.Push(new Pixel(x, y + 1));
+                        bmp.SetPixel(x, y + 1, newcolor);
+
+                        if (bmp.GetPixel(x + 1, y + 1) == color1)
+                        {
+                            pixelStack.Push(new Pixel(x + 1, y + 1));
+                            bmp.SetPixel(x + 1, y + 1, newcolor);
+                        }
+
+                        if (bmp.GetPixel(x - 1, y + 1) == color1)
+                        {
+                            pixelStack.Push(new Pixel(x - 1, y + 1));
+                            bmp.SetPixel(x - 1, y + 1, newcolor);
+                        }
+                    }
+
                     if (bmp.GetPixel(x, y - 1) == color1)
+                    {
                         pixelStack.Push(new Pixel(x, y - 1));
+                        bmp.SetPixel(x, y - 1, newcolor);
+
+                        if (bmp.GetPixel(x + 1, y - 1) == color1)
+                        {
+                            pixelStack.Push(new Pixel(x + 1, y - 1));
+                            bmp.SetPixel(x + 1, y - 1, newcolor);
+                        }
+
+                        if (bmp.GetPixel(x - 1, y - 1) == color1)
+                        {
+                            pixelStack.Push(new Pixel(x - 1, y - 1));
+                            bmp.SetPixel(x - 1, y - 1, newcolor);
+                        }
+                    }
                 }
             }
             return bmp;
